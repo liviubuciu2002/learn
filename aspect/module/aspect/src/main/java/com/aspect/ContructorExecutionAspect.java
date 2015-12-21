@@ -10,6 +10,11 @@ import org.aspectj.lang.annotation.Before;
 public class ContructorExecutionAspect {
 
 
+    /**
+     * com.test..*.*.new(..) - pentru selectia subpackage-urilor   !!!!! IMPORTANT
+     * com.test.*.new(..)  - pentru selectia claselor de la acelasi nivel
+     * More info https://www.safaribooksonline.com/library/view/aspectj-cookbook/0596006543/ch04s02.html
+     */
     @Before("(execution (com.test..*.*.new(..)) || execution (com.test.*.new(..))) && !within(com.aspect.*)")
     public void before(JoinPoint.EnclosingStaticPart staticPart) throws Throwable {
         int i = 0;
