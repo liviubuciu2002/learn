@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.worldpay.gateway</groupId>
+        <artifactId>com-worldpay-gateway-super-pom</artifactId>
+        <version>0.23</version>
+        <relativePath />
+    </parent>
+
+    <!-- parent pom of ims projects -->
+
+    <groupId>com.worldpay.gateway.ims</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.6-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>WorldPay Gateway (WPG) IMS: Parent</name>
+    <description>WorldPay Gateway (WPG) IMS: Parent</description>
+    <url>${com-worldpay-gateway-ims-parent.siteUrl}/${project.artifactId}/</url>
+
+    <scm>
+        <connection>scm:git:git@git.dev.worldpay.com:ims.git</connection>
+        <developerConnection>scm:git:git@git.dev.worldpay.com:ims.git</developerConnection>
+        <url>http://atlassian.worldpay.com:8060/browse/com-worldpay-gateway-ims</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <url>http://atlassian.worldpay.com:8080/</url>
+    </issueManagement>
+
+    <ciManagement>
+        <url>http://jen01m-ca.server.wp.rbsgrp.net:8080/jobs/com-worldpay-gateway-ims/</url>
+    </ciManagement>
+
+    <properties>
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <com-worldpay-gateway-ims-parent.siteUrl>
+            http://jen01m-ca.server.wp.rbsgrp.net:8080/view/Core Eng/job/ECB1878_CORE_ENG_MAVENISATION_JULY_FIXED-site/site
+        </com-worldpay-gateway-ims-parent.siteUrl>
+
+        <!-- Dependency versions -->
+        <com-worldpay-gateway-common-bom.version>0.5</com-worldpay-gateway-common-bom.version>
+        <batik.version>1.5.1-WORLDPAY</batik.version>
+        <org.powermock.version>1.6.2</org.powermock.version>
+        <org.springframework.version>4.1.1.RELEASE</org.springframework.version>
+        <org.springframework.ws.version>2.2.0.RELEASE</org.springframework.ws.version>
+        <argLine></argLine>
+        <aspectj.runtime.version>1.8.7</aspectj.runtime.version>
+        <aspectj.skip>true</aspectj.skip>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>1.8</version>
+                    <configuration>
+                        <skip>${aspectj.skip}</skip>
+                        <complianceLevel>1.7</complianceLevel>
+                        <includes>
+                            <include>**/*.java</include>
+                            <include>**/*.aj</include>
+                        </includes>
+                        <showWeaveInfo>true</showWeaveInfo>
+                        <aspectLibraries>
+                            <aspectLibrary>
+                                <groupId>com.worldpay.gateway.component</groupId>
+                                <artifactId>com-worldpay-gateway-component-properties-aspect</artifactId>
+                            </aspectLibrary>
+                        </aspectLibraries>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>compile_with_aspectj</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>${aspectj.runtime.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- Counter intuitive: http://jira.codehaus.org/browse/MCOMPILER-209 -->
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <testSourceDirectory>src/integration/java</testSourceDirectory>
+                            <testClassesDirectory>${project.build.directory}/integration-classes</testClassesDirectory>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>src/integration/resource</additionalClasspathElement>
+                            </additionalClasspathElements>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+                <artifactId>maven-java-formatter-plugin</artifactId>
+                <configuration>
+                    <directories>
+                        <directory>bahh</directory>
+                    </directories>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.runtime.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjtools</artifactId>
+                <version>${aspectj.runtime.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Dependecies common to all IMS code -->
+    <!-- These should be in the BOM POM. -->
+    <dependencies>
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>aspectj-processing</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <aspectj.skip>false</aspectj.skip>
+            </properties>
+        </profile>
+
+    </profiles>
+</project>

@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--<parent>-->
+    <!-- TODO ** in this super parent are settings for all projects-->
+        <!--<groupId>com.worldpay.gateway</groupId>-->
+        <!--<artifactId>com-worldpay-gateway-super-pom</artifactId>-->
+        <!--<version>0.23</version>-->
+    <!--</parent>-->
+
+    <groupId>com.worldpay.gateway.ims</groupId>
+    <artifactId>aggregator</artifactId>
+    <version>0.6-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>WorldPay Gateway (WPG) IMS: Aggregator</name>
+    <description>WorldPay Gateway (WPG) IMS: Aggregator</description>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus.release</id>
+            <url>http://nexus.dev.worldpay.com:8081/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <!-- Only used for testing the 'site goal' locally, site:stage -->
+    <!-- <distributionManagement> <site> <id>wpg.site</id> <url>http://dummy/</url>
+        </site> </distributionManagement> -->
+
+    <scm>
+        <connection>scm:git:git@git.dev.worldpay.com:ims.git</connection>
+        <developerConnection>scm:git:git@git.dev.worldpay.com:ims.git</developerConnection>
+        <url>http://atlassian.worldpay.com:8060/browse/com-worldpay-gateway-ims</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <!-- <TODO **  This make this pom aggregator-->
+        <module>parent</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <!-- Sonar properties -->
+        <sonar.findbugs.timeout>1800000</sonar.findbugs.timeout>
+        <sonar.host.url>http://sonar.dev.worldpay.com/</sonar.host.url>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
