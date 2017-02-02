@@ -23,5 +23,6 @@ public class MyStarter {
 
         MyBean3 myBean3 = (MyBean3) context.getBean("myBean3_Component");
         System.out.println("+++++" + myBean3.toString());
+        System.out.println("++++ myBean3 string property = " + myBean3.myStringProperty);
     }
 }

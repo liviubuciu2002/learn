@@ -5,14 +5,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com222.injected" />
-    <context:component-scan base-package="com222.beans_scaned" />
+    <context:component-scan base-package="com222.injected"/>
+    <context:component-scan base-package="com222.beans_scaned"/>
 
 
     <bean class="com222.mybeans.MyBean1" id="myBean1" name="myBean1"/>
     <bean class="com222.mybeans.MyBean2" id="myBean2" name="myBean2" scope="prototype"/>
     <bean class="com222.injected.InjectedBean" id="injected">
         <!--<property name="myBean1" value="" />-->
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>myproperties.properties</value>
+        </property>
     </bean>
 
 </beans>
