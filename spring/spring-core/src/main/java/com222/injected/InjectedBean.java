@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  */
 public class InjectedBean {
 
-    @Value("#{ false ? @myBean1 : @myBean2}")
+    @Value("#{ ${prop3} ? @myBean1 : @myBean2}")
     public CommonBean myBean1;
 
     public String myString;
