@@ -1,3 +1,0 @@
-# learn
-learn programming
-myCommnent
